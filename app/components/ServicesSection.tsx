@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import dbConnect, { collectionNamesObj } from '../lib/dbConnect';
+import Link from 'next/link';
 
 export default async function ServicesSection() {
     const serviceCollection = dbConnect(collectionNamesObj.servicesCollection); 
@@ -54,11 +55,11 @@ export default async function ServicesSection() {
                                 </p>
                                 
                                 {/* Icon Button */}
-                                <button className="btn btn-ghost btn-circle text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-colors duration-300">
+                                <Link href={`/services/${item._id}`} className="btn btn-ghost btn-circle text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-colors duration-300">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                                     </svg>
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
