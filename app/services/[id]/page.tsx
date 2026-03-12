@@ -10,14 +10,16 @@ export default async function ServiceDetailspage({params}) {
 
   return (
     <div>
-        <section>
-           <figure className='flex justify-center w-full relative'>
+        <section className='flex justify-center'>
+           <figure className=' w-full relative'>
              <Image src={"/assets/images/checkout/checkout.png"} 
             width={1137}
             height={300}
             alt={"Banner"} />
-            <div className='absolute w-full h-full border-2 border-red-400'>
-
+            <div className='transparent-layer absolute w-full h-full border-2 border-red-400 top-0'>
+           <div>
+            <h1>Service Details</h1>
+           </div>
             </div>
            </figure>
         </section>
