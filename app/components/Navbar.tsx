@@ -55,9 +55,17 @@ export default function Navbar() {
      }
     </ul>
   </div>
-  <div className="navbar-end">
-    <a className="btn btn-outline">Appointment</a>
-  </div>
+ <div className="navbar-end gap-4">
+  {/* রেজিস্ট্রেশন বাটন */}
+  <Link href="/register" className="font-semibold hover:text-[#FF3811] transition-colors">
+    Register
+  </Link>
+  
+  {/* আপনার আগের অ্যাপয়েন্টমেন্ট বাটন */}
+  <button className="btn btn-outline border-[#FF3811] text-[#FF3811]">
+    Appointment
+  </button>
+</div>
 </div>
     </div>
   )
