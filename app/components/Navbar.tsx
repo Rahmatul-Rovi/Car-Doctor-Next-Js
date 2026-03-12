@@ -11,19 +11,19 @@ export default function Navbar() {
        </li>
        
         <li>
-        <Link href="/">About</Link>
+        <Link href="/about">About</Link>
        </li>
 
          <li>
-        <Link href="/">Services</Link>
+        <Link href="/services">Services</Link>
        </li>
 
          <li>
-        <Link href="/">Blog</Link>
+        <Link href="/blog">Blog</Link>
        </li>
 
          <li>
-        <Link href="/">Contact</Link>
+        <Link href="/contact">Contact</Link>
        </li>
       </>
     )
@@ -50,21 +50,13 @@ export default function Navbar() {
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
-      <li><a>Item 1</a></li>
-      <li>
-        <details>
-          <summary>Parent</summary>
-          <ul className="p-2 bg-base-100 w-40 z-1">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </details>
-      </li>
-      <li><a>Item 3</a></li>
+     {
+      navMenu()
+     }
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    <a className="btn btn-outline">Appointment</a>
   </div>
 </div>
     </div>
