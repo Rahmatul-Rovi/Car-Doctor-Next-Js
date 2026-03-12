@@ -17,11 +17,18 @@ export default async function ServiceDetailspage({params}) {
             height={300}
             alt={"Banner"} />
             <div className='transparent-layer absolute w-full h-full border-2 border-red-400 top-0'>
-           <div>
+          <div className='w-full h-full font-bold text-2xl flex items-center ps-8'>
+             <div>
             <h1>Service Details</h1>
            </div>
+          </div>
             </div>
            </figure>
+        </section>
+
+        <section>
+         <Image src={data.img} width={400} height={280} alt={data.title} />
+         <h1 className='font-bold text-2xl'>{data.title}</h1>
         </section>
       <p>{p.id}</p>
       <p>{JSON.stringify(data)}</p>
