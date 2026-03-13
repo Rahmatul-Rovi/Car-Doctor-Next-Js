@@ -2,14 +2,16 @@
 import React from 'react'
 import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";
 import Link from "next/link";
+import { registerUser } from '@/app/actions/auth/registerUser';
 
 export default function RegisterForm() {
     const handleRegister = async(e) => {
+        e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(name,email,password);
+    registerUser({name,email,password});
     // এখানে আপনার রেজিস্ট্রেশন লজিক লিখবেন
   };
   return (
