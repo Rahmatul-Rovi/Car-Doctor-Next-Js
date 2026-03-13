@@ -13,7 +13,9 @@ export const registerUser = async(payload) => {
 
      if(!user){
   const result = await userCollection.insertOne(payload);
-     return result;
+  const {_id} = result;
+
+     return {_id};
      }
 
      return {success: false};
