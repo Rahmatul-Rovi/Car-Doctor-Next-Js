@@ -4,6 +4,18 @@ import dbConnect, { collectionNamesObj } from "@/app/lib/dbConnect";
 
 export const registerUser = async(payload) => {
      const userCollection = dbConnect(collectionNamesObj.userCollection);
-     const result = await userCollection.insertOne(payload);
+
+     //validation
+     const { email, password} = payload;
+     if(!email || !password)  return {success: false};
+
+     const user = await userCollection.findOne({email:payload.email});
+
+     if(!user){
+  const result = await userCollection.insertOne(payload);
      return result;
+     }
+
+     return {success: false};
+   
 }
