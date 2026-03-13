@@ -1,5 +1,6 @@
 "use server";
 
+import bycrypt from "bcrypt";
 import dbConnect, { collectionNamesObj } from "@/app/lib/dbConnect";
 
 export const registerUser = async(payload) => {
@@ -12,10 +13,12 @@ export const registerUser = async(payload) => {
      const user = await userCollection.findOne({email:payload.email});
 
      if(!user){
+      const hashedPassword = await bycrypt.hash(password,10);
+      payload.password = hashedPassword;
   const result = await userCollection.insertOne(payload);
-  const {_id} = result;
+  const {acknowledged, insertedId} = result;
 
-     return {_id};
+     return {acknowledged, insertedId};
      }
 
      return {success: false};
