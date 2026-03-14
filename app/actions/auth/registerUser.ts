@@ -1,26 +1,28 @@
 "use server";
 
-import bycrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import dbConnect, { collectionNamesObj } from "@/app/lib/dbConnect";
 
-export const registerUser = async(payload) => {
-     const userCollection = dbConnect(collectionNamesObj.userCollection);
+export const registerUser = async (payload) => {
+    // dbConnect কে অবশ্যই await করতে হবে
+    const db = await dbConnect(); 
+    const userCollection = db.collection(collectionNamesObj.userCollection);
 
-     //validation
-     const { email, password} = payload;
-     if(!email || !password)  return null;
+    const { email, password } = payload;
+    if (!email || !password) return { error: "Missing fields" };
 
-     const user = await userCollection.findOne({email:payload.email});
+    // ইউজার অলরেডি আছে কি না চেক
+    const exists = await userCollection.findOne({ email });
+    if (exists) return { error: "User already exists" };
 
-     if(!user){
-      const hashedPassword = await bycrypt.hash(password,10);
-      payload.password = hashedPassword;
-  const result = await userCollection.insertOne(payload);
-  result.insertedId = result.insertedId.toString();
-  return result;
-
-     }
-
-     return null;
-   
+    try {
+        // Password Hash
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = { ...payload, password: hashedPassword };
+        
+        const result = await userCollection.insertOne(newUser);
+        return { success: true, id: result.insertedId.toString() };
+    } catch (error) {
+        return { error: "Something went wrong" };
+    }
 }
