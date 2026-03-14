@@ -60,6 +60,10 @@ export default function Navbar() {
   <Link href="/register" className="font-semibold hover:text-[#FF3811] transition-colors">
     Register
   </Link>
+
+   <Link href="/login" className="font-semibold hover:text-[#FF3811] transition-colors">
+    Login
+  </Link>
   
   {/* আপনার আগের অ্যাপয়েন্টমেন্ট বাটন */}
   <button className="btn btn-outline border-[#FF3811] text-[#FF3811]">
