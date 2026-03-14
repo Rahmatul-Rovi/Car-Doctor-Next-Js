@@ -1,12 +1,13 @@
 "use client";
 import React from 'react'
 import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 
 export default function LoginForm() {
-     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+     const handleLogin = async (e) => {
         e.preventDefault();
-        const form = e.currentTarget;
+        const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
         
