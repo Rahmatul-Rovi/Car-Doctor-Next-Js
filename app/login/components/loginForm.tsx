@@ -6,30 +6,42 @@ import Link from "next/link";
 import Swal from 'sweetalert2';
 
 export default function LoginForm() {
-  const handleLogin = async (e) => {
+ const handleLogin = async (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
 
-    Swal.fire({ title: 'Signing in...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+    Swal.fire({
+        title: 'Logging in...',
+        didOpen: () => { Swal.showLoading() }
+    });
 
-    // NextAuth এর মাধ্যমে লগইন লজিক
+    // NextAuth এর signIn মেথড কল করা
     const res = await signIn("credentials", {
         email,
         password,
-        redirect: false, // আমরা কাস্টম এলার্ট দেখাবো তাই false
+        redirect: false,
     });
 
     if (res?.error) {
-        Swal.fire({ icon: 'error', title: 'Login Failed', text: 'Invalid Email or Password', confirmButtonColor: '#FF3811' });
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: 'Invalid email or password!',
+            confirmButtonColor: '#FF3811'
+        });
     } else {
-        Swal.fire({ icon: 'success', title: 'Success', text: 'Logged in successfully!', confirmButtonColor: '#FF3811' })
-        .then(() => {
-            window.location.href = "/"; // সফল হলে হোম পেজে রিডাইরেক্ট
+        Swal.fire({
+            icon: 'success',
+            title: 'Welcome Back!',
+            text: 'Login successful!',
+            confirmButtonColor: '#FF3811'
+        }).then(() => {
+            window.location.href = "/";
         });
     }
-  };
+};
 
   return (
     <div className="card w-full max-w-[570px] border border-[#E8E8E8] p-12 rounded-xl bg-white mx-auto shadow-sm">

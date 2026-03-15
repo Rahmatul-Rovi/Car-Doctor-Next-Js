@@ -1,8 +1,13 @@
+"use client";
+
+import { useSession } from 'next-auth/react';
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 export default function Navbar() {
+  const session = useSession();
+  console.log(session);
   const navMenu = () => {
     return (
        <>
