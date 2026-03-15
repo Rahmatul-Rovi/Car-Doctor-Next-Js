@@ -1,12 +1,12 @@
 "use client";
 
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 export default function Navbar() {
-  const session = useSession();
+  const {data:session , status} = useSession();
   console.log(session);
   const navMenu = () => {
     return (
@@ -62,13 +62,20 @@ export default function Navbar() {
   </div>
  <div className="navbar-end gap-4">
   {/* রেজিস্ট্রেশন বাটন */}
-  <Link href="/register" className="font-semibold hover:text-[#FF3811] transition-colors">
+  {status == 'authenticated' ? (<>
+  <li onClick={()=>signOut()}> LogOut</li>
+  </>) : (
+    <>
+     <Link href="/register" className="font-semibold hover:text-[#FF3811] transition-colors">
     Register
   </Link>
 
    <Link href="/login" className="font-semibold hover:text-[#FF3811] transition-colors">
     Login
   </Link>
+    </>
+  )}
+ 
   
   {/* আপনার আগের অ্যাপয়েন্টমেন্ট বাটন */}
   <button className="btn btn-outline border-[#FF3811] text-[#FF3811]">
