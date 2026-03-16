@@ -2,12 +2,16 @@ import React from 'react'
 import { FaGoogle, FaGithub } from "react-icons/fa"; // FaGithub যোগ করা হয়েছে
 
 export default function SocialLogin() {
+    const handleSocialLogin = (providerName) => {
+      console.log("SocialLogin", providerName);
+      
+    }
   return (
     <div>
       <div className="flex justify-center gap-4">
     {/* Google Login Button */}
     <button 
-        onClick={() => signIn("google", { callbackUrl: "/" })}
+       onClick={() => handleSocialLogin("google")}
         type="button" 
         className="btn btn-circle btn-ghost bg-[#F5F5F8] text-[#EA4335] hover:bg-[#ebedf0] text-xl"
     >
@@ -16,7 +20,7 @@ export default function SocialLogin() {
 
     {/* GitHub Login Button */}
     <button 
-        onClick={() => signIn("github", { callbackUrl: "/" })}
+        onClick={() => handleSocialLogin("github")}
         type="button" 
         className="btn btn-circle btn-ghost bg-[#F5F5F8] text-[#333] hover:bg-[#ebedf0] text-xl"
     >

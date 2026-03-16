@@ -4,6 +4,7 @@ import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import Swal from 'sweetalert2';
+import SocialLogin from './SocialLogin';
 
 export default function LoginForm() {
  const handleLogin = async (e) => {
@@ -60,15 +61,7 @@ export default function LoginForm() {
         </div>
       </form>
       {/* Social Login Buttons... (আগের মতোই থাকবে) */}
-      <div className="text-center mt-10">
-          <p className="text-[#444444] mb-6 font-medium text-base">Or Sign In with</p>
-          <div className="flex justify-center gap-4">
-              <button className="btn btn-circle btn-ghost bg-[#F5F5F8] text-[#3B5998] hover:bg-[#ebedf0] text-xl"><FaFacebookF /></button>
-              <button className="btn btn-circle btn-ghost bg-[#F5F5F8] text-[#0A66C2] hover:bg-[#ebedf0] text-xl"><FaLinkedinIn /></button>
-              <button className="btn btn-circle btn-ghost bg-[#F5F5F8] text-[#EA4335] hover:bg-[#ebedf0] text-xl"><FaGoogle /></button>
-          </div>
-          <p className="mt-10 text-[#737373] text-base">Have an account? <Link href="/register" className="text-[#FF3811] font-bold hover:underline">Sign Up</Link></p>
-      </div>
+     <SocialLogin/>
     </div>
   )
 }
