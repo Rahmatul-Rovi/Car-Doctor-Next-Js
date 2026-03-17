@@ -1,61 +1,60 @@
-"use client"; // ক্লায়েন্ট সাইড কম্পোনেন্ট নিশ্চিত করুন
+"use client";
 
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation'; // router এর বদলে navigation হবে
+import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { FaGoogle, FaGithub } from "react-icons/fa";
-import Swal from 'sweetalert2'; // SweetAlert2 ইমপোর্ট করুন
+import Swal from 'sweetalert2';
 
 export default function SocialLogin() {
     const router = useRouter();
-    const session = useSession();
+    const { data: session } = useSession(); // সেশন ডাটা ডিস্ট্রাকচার করে নিলাম
 
-   const handleSocialLogin = async (providerName: string) => {
-    try {
-        // ১. সাইন ইন শুরু - এখানে redirect: true দিলে অনেক সময় ঝামেলা কমে যায়
-        const result = await signIn(providerName, { 
-            redirect: false,
-            callbackUrl: "/" // লগইন শেষে কোথায় যাবে সেটা আগে থেকেই বলে দিন
-        });
+    // ১. হুক সবসময় ফাংশনের বাইরে থাকবে
+    useEffect(() => {
+        if (session?.user) {
+            router.push("/");
+        }
+    }, [session, router]);
 
-        useEffect(() => {
-            if(session?.user){
-                router.push("/");
+    const handleSocialLogin = async (providerName: string) => {
+        try {
+            // ২. সাইন ইন শুরু
+            const result = await signIn(providerName, { 
+                redirect: false,
+                callbackUrl: "/" 
+            });
+
+            // ৩. যদি এরর থাকে
+            if (result?.error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Login failed. Please try again.',
+                    icon: 'error',
+                });
+                return;
             }
-        }, [])
 
-        // ২. চেক করুন রেজাল্টে কোনো এরর আছে কি না
-        if (result?.error) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'Login failed. Please try again.',
-                icon: 'error',
-            });
-            return;
+            // ৪. সাকসেস হলে (গুগল/গিটহাব অটোমেটিকলি ডাটা নিয়ে নেয়, তাই আলাদা চেক অনেক সময় লাগে না)
+            if (result?.ok) {
+                Swal.fire({
+                    title: 'Login Successful!',
+                    text: `Welcome back via ${providerName}`,
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                router.push('/');
+                router.refresh(); 
+            }
+        } catch (error) {
+            console.error("Login Error:", error);
         }
-
-        // ৩. যদি এরর না থাকে (অর্থাৎ সাকসেস)
-        if (result?.ok) {
-            Swal.fire({
-                title: 'Login Successful!',
-                text: `Welcome back via ${providerName}`,
-                icon: 'success',
-                timer: 2000,
-                showConfirmButton: false
-            });
-
-            // ৪. হোম পেজে পাঠিয়ে দিন
-            router.push('/');
-            router.refresh(); 
-        }
-    } catch (error) {
-        console.error("Login Error:", error);
-    }
-};
+    };
 
     return (
         <div className="flex justify-center gap-4 mt-4">
-            {/* Google Login Button */}
             <button
                 onClick={() => handleSocialLogin("google")}
                 type="button"
@@ -64,7 +63,6 @@ export default function SocialLogin() {
                 <FaGoogle />
             </button>
 
-            {/* GitHub Login Button */}
             <button
                 onClick={() => handleSocialLogin("github")}
                 type="button"
