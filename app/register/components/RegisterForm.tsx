@@ -5,6 +5,7 @@ import Link from "next/link";
 import { registerUser } from '@/app/actions/auth/registerUser';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2'; // ১. সুইট এলার্ট ইমপোর্ট করা হয়েছে
+import SocialLogin from '@/app/login/components/SocialLogin';
 
 export default function RegisterForm() {
     const router = useRouter();
@@ -85,11 +86,7 @@ export default function RegisterForm() {
 
                 <div className="text-center mt-10">
                     <p className="text-[#444444] mb-6 font-medium">Or Sign Up with</p>
-                    <div className="flex justify-center gap-4">
-                        <button className="btn btn-circle btn-ghost bg-[#F5F5F8] text-[#3B5998] hover:bg-[#ebedf0] text-xl"><FaFacebookF /></button>
-                        <button className="btn btn-circle btn-ghost bg-[#F5F5F8] text-[#0A66C2] hover:bg-[#ebedf0] text-xl"><FaLinkedinIn /></button>
-                        <button className="btn btn-circle btn-ghost bg-[#F5F5F8] text-[#EA4335] hover:bg-[#ebedf0] text-xl"><FaGoogle /></button>
-                    </div>
+                  <SocialLogin/>
                     <p className="mt-10 text-[#737373]">
                         Already have an account? <Link href="/login" className="text-[#FF3811] font-bold hover:underline">Login</Link>
                     </p>

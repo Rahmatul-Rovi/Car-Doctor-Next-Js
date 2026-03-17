@@ -63,6 +63,7 @@ export default function Navbar() {
  <div className="navbar-end gap-4">
   {/* রেজিস্ট্রেশন বাটন */}
   {status == 'authenticated' ? (<>
+  <li><image src={session?.image} width={20} height={20} alt="user-logo" /></li>
   <li onClick={()=>signOut()}> LogOut</li>
   </>) : (
     <>

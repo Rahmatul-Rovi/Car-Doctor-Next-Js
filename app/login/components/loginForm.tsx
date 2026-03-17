@@ -62,6 +62,10 @@ export default function LoginForm() {
       </form>
       {/* Social Login Buttons... (আগের মতোই থাকবে) */}
      <SocialLogin/>
+
+      <p className="mt-10 text-[#737373]">
+                        Don't have an account? <Link href="/register" className="text-[#FF3811] font-bold hover:underline">Register</Link>
+                    </p>
     </div>
   )
 }
