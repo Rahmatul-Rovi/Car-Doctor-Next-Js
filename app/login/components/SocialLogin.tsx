@@ -1,11 +1,17 @@
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import React from 'react'
 import { FaGoogle, FaGithub } from "react-icons/fa"; // FaGithub যোগ করা হয়েছে
 
 export default function SocialLogin() {
+  const router = useRouter();
+
     const handleSocialLogin = async (providerName) => {
       console.log("SocialLogin", providerName);
       const result = await signIn(providerName, {redirect:false})
+      if(result.ok){
+        router.push('/')
+      }
       console.log(result);
     }
   return (

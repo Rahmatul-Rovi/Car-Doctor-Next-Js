@@ -61,24 +61,39 @@ export default function Navbar() {
     </ul>
   </div>
  <div className="navbar-end gap-4">
-  {/* রেজিস্ট্রেশন বাটন */}
-  {status == 'authenticated' ? (<>
-  <li><image src={session?.image} width={20} height={20} alt="user-logo" /></li>
-  <li onClick={()=>signOut()}> LogOut</li>
-  </>) : (
+  {status === 'authenticated' ? (
     <>
-     <Link href="/register" className="font-semibold hover:text-[#FF3811] transition-colors">
-    Register
-  </Link>
-
-   <Link href="/login" className="font-semibold hover:text-[#FF3811] transition-colors">
-    Login
-  </Link>
+      {/* ইউজার ইমেজ */}
+      <div className="avatar">
+        <div className="w-10 rounded-full ring ring-[#FF3811] ring-offset-base-100 ring-offset-2">
+          <Image 
+            src={session?.user?.image || '/assets/default-user.png'} // default image fallback
+            width={40} 
+            height={40} 
+            alt="user-logo" 
+          />
+        </div>
+      </div>
+      
+      {/* লগআউট বাটন */}
+      <button 
+        onClick={() => signOut()} 
+        className="btn btn-sm btn-ghost font-semibold hover:text-[#FF3811]"
+      >
+        LogOut
+      </button>
+    </>
+  ) : (
+    <>
+      <Link href="/register" className="font-semibold hover:text-[#FF3811] transition-colors">
+        Register
+      </Link>
+      <Link href="/login" className="font-semibold hover:text-[#FF3811] transition-colors">
+        Login
+      </Link>
     </>
   )}
- 
   
-  {/* আপনার আগের অ্যাপয়েন্টমেন্ট বাটন */}
   <button className="btn btn-outline border-[#FF3811] text-[#FF3811]">
     Appointment
   </button>
