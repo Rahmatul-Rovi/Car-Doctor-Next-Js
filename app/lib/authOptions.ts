@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import { loginUser } from "@/app/actions/auth/loginUser";
+import dbConnect, { collectionNamesObj } from "./dbConnect";
 
 
 export const authOptions = {
@@ -48,5 +49,20 @@ export const authOptions = {
 pages: {
   signIn: "/login",
   
+},
+callbacks: {
+     async signIn({ user, account, profile, email, credentials }) {
+        console.log({ user, account, profile, email, credentials });
+        if(account){
+            const {providerAccountId, provider} = account;
+            const {email: user_email, image, name} = user;
+            const userCollection = dbConnect(collectionNamesObj.userCollection);
+            const user = await userCollection.findOne({providerAccountId})
+            if(!user){
+                const payload = {providerAccountId, provider, user_email, image, name}
+            }
+        }
+      return true
+    },
 }
 }
