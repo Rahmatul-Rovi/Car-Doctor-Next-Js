@@ -5,13 +5,7 @@ import React from 'react';
 
 export default async function ServiceDetailspage({ params }) {
 
-  const p = await params;
 
-  const servicesCollection = dbConnect(collectionNamesObj.servicesCollection);
-
-  const data = await servicesCollection.findOne({
-    _id: new ObjectId(p.id),
-  });
 
   return (
     <div className="max-w-7xl mx-auto px-4">
