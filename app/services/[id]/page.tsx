@@ -1,5 +1,6 @@
 
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 export default async function ServiceDetailspage({ params }) {
@@ -116,9 +117,12 @@ export default async function ServiceDetailspage({ params }) {
               Price ${data.price}
             </h2>
 
-            <button className="mt-6 w-full bg-orange-500 py-3 rounded-lg">
+       <Link href={`/checkout/${data._id}`}>
+         <button className="mt-6 w-full bg-orange-500 py-3 rounded-lg">
               Proceed Checkout
             </button>
+       </Link>
+          
 
           </div>
 
