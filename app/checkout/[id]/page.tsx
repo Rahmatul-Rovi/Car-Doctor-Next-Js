@@ -1,3 +1,4 @@
+import CheckoutForm from '@/app/components/forms/CheckoutForm';
 import React from 'react'
 
 export default async function CheckoutPage({params}) {
@@ -6,7 +7,7 @@ export default async function CheckoutPage({params}) {
     const data = await res.json();
   return (
     <div>
-      {JSON.stringify(data)}
+      <CheckoutForm/>
     </div>
   )
 }
