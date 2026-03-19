@@ -2,8 +2,11 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
-export default function CheckoutForm() {
+export default function CheckoutForm({data}) {
+
+    const {data: session} = useSession();
     
     const handleOrderConfirm = (e: React.FormEvent) => {
         e.preventDefault();
@@ -58,6 +61,8 @@ export default function CheckoutForm() {
                         />
                         {/* Your Email */}
                         <input 
+                        defaultValue={session?.user?.email}
+                        readOnly
                             type="email" 
                             placeholder="Your Email" 
                             className="input w-full p-4 rounded-lg bg-white border-none focus:outline-[#FF3811]"
@@ -67,6 +72,7 @@ export default function CheckoutForm() {
                     
                     {/* Your Message */}
                     <textarea 
+                    defaultValue={data?.price}
                         placeholder="Your Message" 
                         className="textarea w-full p-4 rounded-lg bg-white border-none focus:outline-[#FF3811] mt-6 h-64"
                     ></textarea>
