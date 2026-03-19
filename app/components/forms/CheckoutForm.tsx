@@ -4,14 +4,31 @@ import React from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-export default function CheckoutForm({data}) {
+export default function CheckoutForm({ data }: { data: any }) {
+    const { data: session } = useSession();
 
-    const {data: session} = useSession();
-    
     const handleOrderConfirm = (e: React.FormEvent) => {
         e.preventDefault();
-        // আপনার বুকিং লজিক এখানে লিখুন
-        console.log("Order Confirmed");
+        // ফর্ম থেকে ডাটা কালেক্ট করার জন্য
+        const form = e.target as HTMLFormElement;
+        const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+        const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+        const phone = (form.elements.namedItem('phone') as HTMLInputElement).value;
+        const price = (form.elements.namedItem('price') as HTMLInputElement).value;
+        const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
+
+        const orderData = {
+            userName: name,
+            userEmail: email,
+            phone,
+            price,
+            message,
+            serviceName: data?.title,
+            serviceId: data?._id
+        };
+
+        console.log("Order Data:", orderData);
+        // এখানে আপনার ডাটাবেসে সেভ করার লজিক লিখবেন
     };
 
     return (
@@ -19,7 +36,7 @@ export default function CheckoutForm({data}) {
             {/* Banner Section */}
             <div className="relative w-full h-64 rounded-xl overflow-hidden mb-12">
                 <Image 
-                    src="/assets/images/checkout/checkout.png" // আপনার ইমেজ পাথ চেক করে নিন
+                    src="/assets/images/checkout/checkout.png" 
                     alt="Check Out Banner"
                     fill
                     className="object-cover"
@@ -38,49 +55,69 @@ export default function CheckoutForm({data}) {
             <div className="bg-[#F3F3F3] p-10 lg:p-24 rounded-xl">
                 <form onSubmit={handleOrderConfirm}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* First Name */}
-                        <input 
-                            type="text" 
-                            placeholder="First Name" 
-                            className="input w-full p-4 rounded-lg bg-white border-none focus:outline-[#FF3811]"
-                            required
-                        />
-                        {/* Last Name */}
-                        <input 
-                            type="text" 
-                            placeholder="Last Name" 
-                            className="input w-full p-4 rounded-lg bg-white border-none focus:outline-[#FF3811]"
-                            required
-                        />
-                        {/* Your Phone */}
-                        <input 
-                            type="text" 
-                            placeholder="Your Phone" 
-                            className="input w-full p-4 rounded-lg bg-white border-none focus:outline-[#FF3811]"
-                            required
-                        />
-                        {/* Your Email */}
-                        <input 
-                        defaultValue={session?.user?.email}
-                        readOnly
-                            type="email" 
-                            placeholder="Your Email" 
-                            className="input w-full p-4 rounded-lg bg-white border-none focus:outline-[#FF3811]"
-                            required
-                        />
+                        {/* Full Name (Read Only) */}
+                        <div className="form-control">
+                            <label className="label"><span className="label-text font-semibold">Name</span></label>
+                            <input 
+                                name="name"
+                                type="text" 
+                                defaultValue={session?.user?.name || ''}
+                                readOnly
+                                className="input w-full p-4 rounded-lg bg-white border-none focus:outline-none cursor-not-allowed"
+                            />
+                        </div>
+
+                        {/* User Email (Read Only) */}
+                        <div className="form-control">
+                            <label className="label"><span className="label-text font-semibold">Email</span></label>
+                            <input 
+                                name="email"
+                                type="email" 
+                                defaultValue={session?.user?.email || ''}
+                                readOnly
+                                className="input w-full p-4 rounded-lg bg-white border-none focus:outline-none cursor-not-allowed"
+                            />
+                        </div>
+
+                        {/* Price (Read Only) */}
+                        <div className="form-control">
+                            <label className="label"><span className="label-text font-semibold">Service Price</span></label>
+                            <input 
+                                name="price"
+                                type="text" 
+                                defaultValue= {data?.price}
+                                readOnly
+                                className="input w-full p-4 rounded-lg bg-white border-none focus:outline-none cursor-not-allowed"
+                            />
+                        </div>
+
+                        {/* Phone Number (Editable) */}
+                        <div className="form-control">
+                            <label className="label"><span className="label-text font-semibold">Your Phone</span></label>
+                            <input 
+                                name="phone"
+                                type="text" 
+                                placeholder="Enter your phone number" 
+                                className="input w-full p-4 rounded-lg bg-white border-none focus:outline-[#FF3811]"
+                                required
+                            />
+                        </div>
                     </div>
                     
-                    {/* Your Message */}
-                    <textarea 
-                    defaultValue={data?.price}
-                        placeholder="Your Message" 
-                        className="textarea w-full p-4 rounded-lg bg-white border-none focus:outline-[#FF3811] mt-6 h-64"
-                    ></textarea>
+                    {/* Your Message Section */}
+                    <div className="form-control mt-6">
+                        <label className="label"><span className="label-text font-semibold">Additional Message</span></label>
+                        <textarea 
+                            name="message"
+                            placeholder="Write any special requirements..." 
+                            className="textarea w-full p-4 rounded-lg bg-white border-none focus:outline-[#FF3811] h-48"
+                        ></textarea>
+                    </div>
 
                     {/* Submit Button */}
                     <button 
                         type="submit" 
-                        className="btn w-full bg-[#FF3811] hover:bg-[#e0310d] text-white border-none mt-6 py-4 text-xl font-bold rounded-lg"
+                        className="btn w-full bg-[#FF3811] hover:bg-[#e0310d] text-white border-none mt-8 py-4 text-xl font-bold rounded-lg"
                     >
                         Order Confirm
                     </button>
