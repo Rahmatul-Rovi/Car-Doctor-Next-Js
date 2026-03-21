@@ -63,7 +63,7 @@ export default function Navbar() {
  <div className="navbar-end gap-4">
   {status === 'authenticated' ? (
     <>
-      {/* ইউজার ইমেজ */}
+      {/* User Image */}
       <div className="avatar">
         <div className="w-10 rounded-full ring ring-[#FF3811] ring-offset-base-100 ring-offset-2">
           <Image 
@@ -75,7 +75,7 @@ export default function Navbar() {
         </div>
       </div>
       
-      {/* লগআউট বাটন */}
+      {/* Logout Button */}
       <button 
         onClick={() => signOut()} 
         className="btn btn-sm btn-ghost font-semibold hover:text-[#FF3811]"
