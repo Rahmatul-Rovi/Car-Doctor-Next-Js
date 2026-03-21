@@ -7,9 +7,9 @@ import { useSession } from 'next-auth/react';
 export default function CheckoutForm({ data }: { data: any }) {
     const { data: session } = useSession();
 
-    const handleOrderConfirm = (e: React.FormEvent) => {
+    const handleOrderConfirm = async (e: React.FormEvent) => {
         e.preventDefault();
-        // ফর্ম থেকে ডাটা কালেক্ট করার জন্য
+        // Data collect from form data
         const form = e.target as HTMLFormElement;
         const name = (form.elements.namedItem('name') as HTMLInputElement).value;
         const email = (form.elements.namedItem('email') as HTMLInputElement).value;
@@ -28,7 +28,14 @@ export default function CheckoutForm({ data }: { data: any }) {
         };
 
         console.log("Order Data:", orderData);
-        // এখানে আপনার ডাটাবেসে সেভ করার লজিক লিখবেন
+        // Database Save logic
+        const res = await fetch("http://localhost:3000/api/services", {
+            method: "POST",
+            body: JSON.stringify(orderData),
+        });
+       
+        const postedResponse = await res.json();
+        console.log(postedResponse);
     };
 
     return (

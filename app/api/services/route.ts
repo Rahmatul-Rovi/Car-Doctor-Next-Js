@@ -1,10 +1,6 @@
-import React from 'react'
-import { GiH2O } from 'react-icons/gi'
+import { NextResponse } from "next/server"
 
-export default function route() {
-  return (
-    <div>
-      <h2> This is Home <h2/>
-    </div>
-  )
+export const POST = async (req) => {
+    const body = await req.json();
+return NextResponse.json({});
 }
