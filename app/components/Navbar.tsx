@@ -28,7 +28,7 @@ export default function Navbar() {
        </li>
 
          <li>
-        <Link href="/contact">Contact</Link>
+        <Link href="/my-bookings">My Bookings</Link>
        </li>
       </>
     )
