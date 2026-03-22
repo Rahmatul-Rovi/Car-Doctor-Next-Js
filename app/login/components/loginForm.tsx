@@ -18,7 +18,6 @@ export default function LoginForm() {
         didOpen: () => { Swal.showLoading() }
     });
 
-    // NextAuth এর signIn মেথড কল করা
     const res = await signIn("credentials", {
         email,
         password,
@@ -60,7 +59,7 @@ export default function LoginForm() {
           <button type="submit" className="btn bg-[#FF3811] hover:bg-[#e6320f] text-white border-none h-14 text-lg font-semibold rounded-lg">Sign In</button>
         </div>
       </form>
-      {/* Social Login Buttons... (আগের মতোই থাকবে) */}
+      {/* Social Login Buttons */}
      <SocialLogin/>
 
       <p className="mt-10 text-[#737373]">

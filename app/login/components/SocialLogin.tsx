@@ -8,9 +8,8 @@ import Swal from 'sweetalert2';
 
 export default function SocialLogin() {
     const router = useRouter();
-    const { data: session } = useSession(); // সেশন ডাটা ডিস্ট্রাকচার করে নিলাম
+    const { data: session } = useSession(); 
 
-    // ১. হুক সবসময় ফাংশনের বাইরে থাকবে
     useEffect(() => {
         if (session?.user) {
             router.push("/");
@@ -19,13 +18,13 @@ export default function SocialLogin() {
 
     const handleSocialLogin = async (providerName: string) => {
         try {
-            // ২. সাইন ইন শুরু
+            // SignIn Start
             const result = await signIn(providerName, { 
                 redirect: false,
                 callbackUrl: "/" 
             });
 
-            // ৩. যদি এরর থাকে
+            // if error
             if (result?.error) {
                 Swal.fire({
                     title: 'Error!',
@@ -35,7 +34,6 @@ export default function SocialLogin() {
                 return;
             }
 
-            // ৪. সাকসেস হলে (গুগল/গিটহাব অটোমেটিকলি ডাটা নিয়ে নেয়, তাই আলাদা চেক অনেক সময় লাগে না)
             if (result?.ok) {
                 Swal.fire({
                     title: 'Login Successful!',
