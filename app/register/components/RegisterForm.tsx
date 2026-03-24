@@ -17,7 +17,7 @@ export default function RegisterForm() {
         const email = form.email.value;
         const password = form.password.value;
         
-        // ২. লোডিং স্টেট দেখানোর জন্য (ঐচ্ছিক কিন্তু ভালো প্র্যাকটিস)
+        // Showing Loading State
         Swal.fire({
             title: 'Processing...',
             text: 'Please wait while we create your account',
@@ -29,13 +29,13 @@ export default function RegisterForm() {
 
         const result = await registerUser({ name, email, password });
 
-        // ৩. রেজাল্ট অনুযায়ী এলার্ট দেখানো
+        // Show SweetAlert
         if (result?.success) {
             Swal.fire({
                 icon: 'success',
                 title: 'Registration Successful!',
                 text: 'Welcome to Car Doctor!',
-                confirmButtonColor: '#FF3811', // আপনার ব্রান্ড কালার
+                confirmButtonColor: '#FF3811',
             }).then(() => {
                 form.reset();
                 router.push('/login'); 
