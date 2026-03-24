@@ -4,7 +4,7 @@ import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";
 import Link from "next/link";
 import { registerUser } from '@/app/actions/auth/registerUser';
 import { useRouter } from 'next/navigation';
-import Swal from 'sweetalert2'; // ১. সুইট এলার্ট ইমপোর্ট করা হয়েছে
+import Swal from 'sweetalert2';
 import SocialLogin from '@/app/login/components/SocialLogin';
 
 export default function RegisterForm() {

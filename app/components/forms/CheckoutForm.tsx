@@ -11,7 +11,7 @@ export default function CheckoutForm({ data }: { data: any }) {
     const handleOrderConfirm = async (e: React.FormEvent) => {
         e.preventDefault();
         
-        // ফর্ম ডাটা কালেক্ট করা
+        // Data Collect from the form
         const form = e.target as HTMLFormElement;
         const name = (form.elements.namedItem('name') as HTMLInputElement).value;
         const email = (form.elements.namedItem('email') as HTMLInputElement).value;
@@ -27,11 +27,11 @@ export default function CheckoutForm({ data }: { data: any }) {
             message,
             serviceName: data?.title,
             serviceId: data?._id,
-            status: 'pending' // ডিফল্ট স্ট্যাটাস যোগ করে দিলাম
+            status: 'pending' // Default Status pending
         };
 
         try {
-            // ১. ডাটাবেসে সেভ করার জন্য রিকোয়েস্ট পাঠানো
+            // Save this to the database
             const res = await fetch("http://localhost:3000/api/services", {
                 method: "POST",
                 headers: {
@@ -41,7 +41,7 @@ export default function CheckoutForm({ data }: { data: any }) {
             });
 
             if (res.ok) {
-                // ২. সাকসেস মেসেজ দেখানো
+                // Success message show
                 Swal.fire({
                     title: 'Success!',
                     text: 'Your order has been placed successfully.',
@@ -50,10 +50,10 @@ export default function CheckoutForm({ data }: { data: any }) {
                     confirmButtonText: 'Great!'
                 });
                 
-                // ৩. ফর্মটি খালি করে দেওয়া (শুধুমাত্র এডিটেবল ফিল্ডগুলো)
+                //Form reset after the confirm
                 form.reset(); 
             } else {
-                // কোনো সমস্যা হলে
+                // If any error
                 Swal.fire({
                     title: 'Error!',
                     text: 'Failed to place order. Please try again.',

@@ -12,10 +12,10 @@ const RegisterPage = () => {
     <div className="max-w-7xl mx-auto px-4 py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
-        {/* বাম পাশের ইমেজ সেকশন */}
+        {/* Left Side Image Chnage */}
         <div className="flex justify-center">
           <Image
-            src="/assets/images/login/login.svg" // আপনার দেওয়া লোকেশন
+            src="/assets/images/login/login.svg"
             width={460}
             height={500}
             alt="Register Illustration"
