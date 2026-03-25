@@ -8,11 +8,11 @@ export const GET = async (req) => {
     if(session){
        const email = session?.user?.email;
        const bookingCollection = dbConnect(collectionNamesObj.bookingCollection);
-       const result = await bookingCollection.find({email}).toArray();
+       const result = await bookingCollection.find({userEmail:email}).toArray();
 
        return NextResponse.json(result);
     }
-    return NextResponse.json({});
+    return NextResponse.json([]);
 }
 
 export const POST = async (req) => {

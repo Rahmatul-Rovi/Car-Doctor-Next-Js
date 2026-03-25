@@ -14,7 +14,7 @@ export default function MyBookingsPage() {
   }, [])
   return (
     <div>
-      <MyBookingsTable> data={data}</MyBookingsTable>
+      <MyBookingsTable bookings={data} /> 
     </div>
   )
 }
