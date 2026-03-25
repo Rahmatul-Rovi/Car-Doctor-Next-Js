@@ -4,13 +4,13 @@ import React from 'react'
 export default async function CheckoutPage({params}) {
     const p = await params;
     
-    // ১. ডাটা ফেচ করছেন ঠিক আছে
+    // Data Fetch
     const res = await fetch(`http://localhost:3000/api/services/${p.id}`);
-    const serviceData = await res.json(); // নামটা 'serviceData' দিলাম যাতে বুঝতে সুবিধা হয়
+    const serviceData = await res.json(); 
 
     return (
         <div>
-            {/* ২. এখানে 'data' প্রপস হিসেবে ডাটা-টা পাঠাতে হবে */}
+            {/* Props Data */}
             <CheckoutForm data={serviceData} />
         </div>
     )
