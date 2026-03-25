@@ -10,6 +10,7 @@ export default function MyBookingsPage() {
       const d = await res.json();
       setData(d);
     }
+    fetchMyBookings();
   }, [])
   return (
     <div>

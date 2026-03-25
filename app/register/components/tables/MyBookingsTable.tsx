@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FaTimes } from "react-icons/fa";
 
-export default function MyBookingsTable({ bookings }: { bookings: any[] }) {
+export default function MyBookingsTable({ data }: { data: any[] }) {
     return (
         <div className="container mx-auto my-12 px-4">
             {/* Banner Section */}
@@ -27,45 +27,49 @@ export default function MyBookingsTable({ bookings }: { bookings: any[] }) {
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <tbody>
-                        {bookings?.map((booking) => (
-                            <tr key={booking._id} className="border-b border-gray-100">
-                                <th>
-                                    <button className="btn btn-circle btn-sm bg-[#444] text-white hover:bg-red-600 border-none">
-                                        <FaTimes />
-                                    </button>
-                                </th>
-                                <td>
-                                    <div className="flex items-center space-x-3">
-                                        <div className="avatar">
-                                            <div className="rounded-xl w-24 h-24 relative">
-                                                <Image
-                                                    src={booking?.serviceImg || "/assets/images/services/1.jpg"}
-                                                    alt="Service"
-                                                    fill
-                                                    className="object-cover"
-                                                />
+                        {data?.length > 0 ? (
+                            data.map((booking) => ( // এখানে 'booking' নাম ব্যবহার করা হয়েছে
+                                <tr key={booking._id} className="border-b border-gray-100">
+                                    <th>
+                                        <button className="btn btn-circle btn-sm bg-[#444] text-white hover:bg-red-600 border-none">
+                                            <FaTimes />
+                                        </button>
+                                    </th>
+                                    <td>
+                                        <div className="flex items-center space-x-3">
+                                            <div className="avatar">
+                                                <div className="rounded-xl w-24 h-24 relative">
+                                                    <Image
+                                                        src={booking?.serviceImg || "/assets/images/services/1.jpg"}
+                                                        alt="Service"
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="font-bold text-xl text-[#444]">{booking.serviceName}</div>
+                                                <div className="text-sm opacity-50">Color : Green</div>
+                                                <div className="text-sm opacity-50">Size : S</div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <div className="font-bold text-xl text-[#444]">{booking.serviceName}</div>
-                                            <div className="text-sm opacity-50">Color : Green</div>
-                                            <div className="text-sm opacity-50">Size : S</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="font-semibold text-[#444] text-lg">
-                                    ${booking.price}
-                                </td>
-                                <td className="font-medium text-[#444]">
-                                    {booking.date || '22-10-2022'}
-                                </td>
-                                <th>
-                                    <button className={`btn btn-ghost btn-md normal-case text-white px-8 rounded-lg ${booking.status === 'pending' ? 'bg-[#FF3811]' : 'bg-green-600'}`}>
-                                        {booking.status || 'Pending'}
-                                    </button>
-                                </th>
-                            </tr>
-                        ))}
+                                    </td>
+                                    <td className="font-semibold text-[#444] text-lg">
+                                        ${booking.price}
+                                    </td>
+                                    <td className="font-medium text-[#444]">
+                                        {booking.date || '22-10-2022'}
+                                    </td>
+                                    <th>
+                                        <button className={`btn btn-ghost btn-md normal-case text-white px-8 rounded-lg ${booking.status === 'pending' ? 'bg-[#FF3811]' : 'bg-green-600'}`}>
+                                            {booking.status || 'Pending'}
+                                        </button>
+                                    </th>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr><td colSpan={5} className="text-center py-10">No bookings found.</td></tr>
+                        )}
                     </tbody>
                 </table>
             </div>
