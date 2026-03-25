@@ -55,11 +55,11 @@ callbacks: {
         console.log({ user, account, profile, email, credentials });
         if(account){
             const {providerAccountId, provider} = account;
-            const {email: user_email, image, name} = user;
+            const {email: userEmail, image, name} = user;
             const userCollection = dbConnect(collectionNamesObj.userCollection);
             const isExisted = await userCollection.findOne({providerAccountId})
             if(!isExisted){
-                const payload = {providerAccountId, provider, user_email, image, name}
+                const payload = {providerAccountId, provider, userEmail, image, name}
                 await userCollection.insertOne(payload);
             }
         }

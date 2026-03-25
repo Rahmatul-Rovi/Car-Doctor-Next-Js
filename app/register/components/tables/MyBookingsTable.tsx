@@ -18,7 +18,7 @@ export default function MyBookingsTable({ data }: { data: any[] }) {
                 <div className="absolute inset-0 bg-black/50 flex items-center px-20">
                     <div>
                         <h1 className="text-white text-5xl font-bold">Cart Details</h1>
-                        <p className="text-[#FF3811] font-semibold mt-2">Home - Product Details</p>
+                        <p className="text-[#FF3811] font-semibold mt-2">Home - My Bookings</p>
                     </div>
                 </div>
             </div>
@@ -26,9 +26,18 @@ export default function MyBookingsTable({ data }: { data: any[] }) {
             {/* Table Section */}
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
+                    <thead>
+                        <tr className="text-[#444] text-lg">
+                            <th>Delete</th>
+                            <th>Service</th>
+                            <th>Price</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {data?.length > 0 ? (
-                            data.map((booking) => ( // এখানে 'booking' নাম ব্যবহার করা হয়েছে
+                            data.map((booking) => (
                                 <tr key={booking._id} className="border-b border-gray-100">
                                     <th>
                                         <button className="btn btn-circle btn-sm bg-[#444] text-white hover:bg-red-600 border-none">
@@ -39,6 +48,7 @@ export default function MyBookingsTable({ data }: { data: any[] }) {
                                         <div className="flex items-center space-x-3">
                                             <div className="avatar">
                                                 <div className="rounded-xl w-24 h-24 relative">
+                                                    {/* ডাটাবেসে img ফিল্ড থাকলে সেটা দেখাবে, না থাকলে ডিফল্ট */}
                                                     <Image
                                                         src={booking?.serviceImg || "/assets/images/services/1.jpg"}
                                                         alt="Service"
@@ -49,8 +59,7 @@ export default function MyBookingsTable({ data }: { data: any[] }) {
                                             </div>
                                             <div>
                                                 <div className="font-bold text-xl text-[#444]">{booking.serviceName}</div>
-                                                <div className="text-sm opacity-50">Color : Green</div>
-                                                <div className="text-sm opacity-50">Size : S</div>
+                                                <div className="text-sm opacity-50">Email: {booking.userEmail}</div>
                                             </div>
                                         </div>
                                     </td>
@@ -58,7 +67,7 @@ export default function MyBookingsTable({ data }: { data: any[] }) {
                                         ${booking.price}
                                     </td>
                                     <td className="font-medium text-[#444]">
-                                        {booking.date || '22-10-2022'}
+                                        {booking.date || 'Not Scheduled'}
                                     </td>
                                     <th>
                                         <button className={`btn btn-ghost btn-md normal-case text-white px-8 rounded-lg ${booking.status === 'pending' ? 'bg-[#FF3811]' : 'bg-green-600'}`}>
@@ -68,7 +77,11 @@ export default function MyBookingsTable({ data }: { data: any[] }) {
                                 </tr>
                             ))
                         ) : (
-                            <tr><td colSpan={5} className="text-center py-10">No bookings found.</td></tr>
+                            <tr>
+                                <td colSpan={5} className="text-center py-20 text-2xl font-bold text-gray-400">
+                                    No bookings found for your email.
+                                </td>
+                            </tr>
                         )}
                     </tbody>
                 </table>
