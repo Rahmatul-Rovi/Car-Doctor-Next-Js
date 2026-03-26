@@ -14,12 +14,20 @@ export const DELETE = async (req, {params}) => {
   const session = await getServerSession(authOptions);
   const currentBooking = await bookinCollection.findOne(query)
 
-  //Deleting User Specific Booking
+  const isOwnerOk = session?.user?.email == currentBooking.email
+
+  if(isOwnerOk){
+ //Deleting User Specific Booking
 
  
   const deleteResponse = await bookinCollection.deleteOne(query);
 
-  return NextResponse(deleteResponse);
+  return NextResponse.json(deleteResponse);
+  }
+  else{
+    return NextResponse.json({success: false, message: "Forbidden Action"}, {status:401})
+  }
+ 
 
 }
 
