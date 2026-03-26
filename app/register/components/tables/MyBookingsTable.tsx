@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { FaTimes } from "react-icons/fa";
+import Link from 'next/link';
 
 export default function MyBookingsTable({ data }: { data: any[] }) {
     return (
@@ -89,10 +90,10 @@ export default function MyBookingsTable({ data }: { data: any[] }) {
 
             {/* Footer Buttons */}
             <div className="flex justify-between items-center mt-12">
-                <div className="flex items-center gap-2 cursor-pointer text-[#444]">
+                <Link href="/" className="flex items-center gap-2 cursor-pointer text-[#444]">
                     <span className="rotate-180">➜</span> 
                     <span className="font-medium">Continue Shopping</span>
-                </div>
+                </Link>
                 <div className="flex items-center gap-2 cursor-pointer text-[#444]">
                     <span>🗑️</span> 
                     <span className="font-medium">Clear Shopping Cart</span>
