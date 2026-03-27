@@ -2,6 +2,7 @@ import { authOptions } from '@/app/lib/authOptions';
 import dbConnect, { collectionNamesObj } from '@/app/lib/dbConnect';
 import { ObjectId } from 'mongodb';
 import { getServerSession } from 'next-auth';
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from "next/server";
 
 export const DELETE = async (req, {params}) => {
@@ -21,7 +22,7 @@ export const DELETE = async (req, {params}) => {
 
  
   const deleteResponse = await bookinCollection.deleteOne(query);
-
+  revalidatePath("/my-bookings");
   return NextResponse.json(deleteResponse);
   }
   else{
