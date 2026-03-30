@@ -1,5 +1,7 @@
+import { authOptions } from "@/app/lib/authOptions";
 import dbConnect , {collectionNamesObj} from "@/app/lib/dbConnect";
 import { ObjectId } from "mongodb";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server"
 
 export const GET = async (req, {params})=>{
@@ -17,13 +19,25 @@ export const PATCH = async (requestAnimationFrame, {params}) => {
     const bookingCollection = dbConnect(collectionNamesObj.bookinCollection);
     const query = {_id: new ObjectId(p.id)};
 
-    const body = await req.json()
+   const session = await getServerSession(authOptions)
+   const email = session?.user?.email
+   const currentBookingData = await bookingCollection.findOne(query)
+   const isOwnerOk === email === currentBookingData?.email;
+
+
+    if(isOwnerOk){
+            const body = await req.json()
     const filter = {
-        $set: ...body
+        $set: {...body}
     }
     const option = {
         upsert: true;
     }
 
-    const updateResponse = await bookingCollection.updateOne(query, filter)
+    const updateResponse = await bookingCollection.updateOne(query, filter, option)
+
+    revalidatePath("/my-bookings")
+    return NextResponse(updateResponse);
+    }
+
 }
