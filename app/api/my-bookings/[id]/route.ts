@@ -9,9 +9,22 @@ export const GET = async (req, {params})=>{
     const p = await params;
     const bookingCollection = dbConnect(collectionNamesObj.bookinCollection);
     const query = {_id: new ObjectId(p.id)};
-    const singleBooking = await bookingCollection.findOne(query)
-    return NextResponse.json(singleBooking);
-}
+   
+      const session = await getServerSession(authOptions)
+   const email = session?.user?.email
+  const singleBooking = await bookingCollection.findOne(query)
+   const isOwnerOk === email === currentBookingData?.email;
+   if(isOwnerOk){
+       return NextResponse.json(singleBooking);
+
+   }
+    else{
+        return NextResponse({message: "Forbidden GET  Action"}, {
+            status: 403,
+        })
+    }
+
+    }
 
 
 export const PATCH = async (requestAnimationFrame, {params}) => {
@@ -38,6 +51,11 @@ export const PATCH = async (requestAnimationFrame, {params}) => {
 
     revalidatePath("/my-bookings")
     return NextResponse(updateResponse);
+    }
+    else{
+        return NextResponse({message: "Forbidden Update Action"}, {
+            status: 403,
+        })
     }
 
 }
