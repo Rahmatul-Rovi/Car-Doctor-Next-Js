@@ -13,7 +13,7 @@ export const GET = async (req, {params})=>{
       const session = await getServerSession(authOptions)
    const email = session?.user?.email
   const singleBooking = await bookingCollection.findOne(query)
-   const isOwnerOk === email === currentBookingData?.email;
+   const isOwnerOk = email === currentBookingData?.email;
    if(isOwnerOk){
        return NextResponse.json(singleBooking);
 
@@ -35,7 +35,7 @@ export const PATCH = async (requestAnimationFrame, {params}) => {
    const session = await getServerSession(authOptions)
    const email = session?.user?.email
    const currentBookingData = await bookingCollection.findOne(query)
-   const isOwnerOk === email === currentBookingData?.email;
+   const isOwnerOk = email === currentBookingData?.email;
 
 
     if(isOwnerOk){
@@ -44,7 +44,7 @@ export const PATCH = async (requestAnimationFrame, {params}) => {
         $set: {...body}
     }
     const option = {
-        upsert: true;
+        upsert: true,
     }
 
     const updateResponse = await bookingCollection.updateOne(query, filter, option)
