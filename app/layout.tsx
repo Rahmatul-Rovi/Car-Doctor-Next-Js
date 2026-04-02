@@ -36,12 +36,8 @@ export default function RootLayout({
           <main className="min-h-screen">
              {children}
           </main>
-          <section id="blog">
-        <BlogPage />
-      </section>
-      <section id="about">
-         <AboutPage/>
-      </section>
+        
+     
           <Footer />
         </NextAuthProvider>
       </body>
