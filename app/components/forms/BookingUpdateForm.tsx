@@ -1,13 +1,29 @@
 "use client";
 
 import React from 'react';
-import Swal from 'sweetalert2'; // অ্যালার্টের জন্য এটি ব্যবহার করতে পারেন
+import Swal from 'sweetalert2';
 
-export default function BookingUpdateForm({ booking, onClose, onUpdate }) {
+// ✅ Type define করুন
+type Booking = {
+    _id: string;
+    serviceName?: string;
+    phone?: string;
+    date?: string;
+    message?: string;
+    email?: string;
+}
+
+type Props = {
+    booking: Booking;
+    onClose: () => void;
+    onUpdate: () => void;
+}
+
+export default function BookingUpdateForm({ booking, onClose, onUpdate }: Props) { // ✅ type দিন
     
-    const handleUpdate = async (e) => {
+    const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => { // ✅ event type
         e.preventDefault();
-        const form = e.target;
+        const form = e.target as HTMLFormElement; // ✅ form type
         
         const updatedData = {
             phone: form.phone.value,
@@ -15,9 +31,8 @@ export default function BookingUpdateForm({ booking, onClose, onUpdate }) {
             message: form.message.value,
         };
 
-        // আপডেট করার জন্য আপনার এপিআই কল
-        const res = await fetch(`http://localhost:3000/api/my-bookings/${booking._id}`, {
-            method: "PATCH", // বা PUT
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/my-bookings/${booking._id}`, { // ✅ localhost সরানো
+            method: "PATCH",
             headers: {
                 "content-type": "application/json"
             },
@@ -30,8 +45,8 @@ export default function BookingUpdateForm({ booking, onClose, onUpdate }) {
                 text: "Booking updated successfully",
                 icon: "success"
             });
-            onUpdate(); // টেবিল রিফ্রেশ করার জন্য
-            onClose();  // ফর্ম বন্ধ করার জন্য
+            onUpdate();
+            onClose();
         }
     };
 
