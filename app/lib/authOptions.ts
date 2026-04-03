@@ -1,11 +1,11 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import { NextAuthOptions, User } from "next-auth"; // ✅ এটা যোগ করুন
+import { NextAuthOptions, User } from "next-auth";
 import { loginUser } from "@/app/actions/auth/loginUser";
 import dbConnect, { collectionNamesObj } from "./dbConnect";
 
-export const authOptions: NextAuthOptions = { // ✅ any → NextAuthOptions
+export const authOptions: NextAuthOptions = { 
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -13,10 +13,10 @@ export const authOptions: NextAuthOptions = { // ✅ any → NextAuthOptions
         email: { label: "Email", type: "text", placeholder: "Enter Email" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials): Promise<User | null> { // ✅ any সরিয়ে দিন
+      async authorize(credentials): Promise<User | null> {
         const user = await loginUser(credentials);
         if (user) return {
-            id: user._id.toString(), // ✅ _id কে id তে map করুন
+            id: user._id.toString(), 
             email: user.email,
             name: user.name,
             image: user.image,
@@ -38,7 +38,7 @@ export const authOptions: NextAuthOptions = { // ✅ any → NextAuthOptions
     signIn: "/login",
   },
   callbacks: {
-    async signIn({ user, account }) { // ✅ any সরিয়ে দিন
+    async signIn({ user, account }) { 
       if (account) {
         const { providerAccountId, provider } = account;
         const { email: userEmail, image, name } = user;
