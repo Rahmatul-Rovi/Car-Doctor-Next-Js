@@ -1,7 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import { NextAuthOptions } from "next-auth"; // ✅ এটা যোগ করুন
+import { NextAuthOptions, User } from "next-auth"; // ✅ এটা যোগ করুন
 import { loginUser } from "@/app/actions/auth/loginUser";
 import dbConnect, { collectionNamesObj } from "./dbConnect";
 
@@ -13,11 +13,14 @@ export const authOptions: NextAuthOptions = { // ✅ any → NextAuthOptions
         email: { label: "Email", type: "text", placeholder: "Enter Email" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials) { // ✅ any সরিয়ে দিন
+      async authorize(credentials): Promise<User | null> { // ✅ any সরিয়ে দিন
         const user = await loginUser(credentials);
-        if (user) {
-          return user;
-        } else {
+        if (user) return {
+            id: user._id.toString(), // ✅ _id কে id তে map করুন
+            email: user.email,
+            name: user.name,
+            image: user.image,
+          }; else {
           return null;
         }
       }
