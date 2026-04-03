@@ -7,25 +7,25 @@ export const loginUser = async (payload: any) => {
    const { email, password } = payload;
 
   try {
-    // ১১ নম্বর লাইনের খালি dbConnect() টা ডিলিট করে দিয়েছি
-    // সরাসরি কালেকশনটা কানেক্ট করুন
+  
+    //Database Connect
     const userCollection = await dbConnect(collectionNamesObj.userCollection);
 
-    // ৩. ইউজার খোঁজা
+    // User Check
     const user = await userCollection.findOne({ email });
     
     if (!user) {
       return null;
     }
 
-    // ৪. পাসওয়ার্ড চেক
+    // Password Check
     const isPasswordOk = await bcrypt.compare(password, user.password);
 
     if (!isPasswordOk) {
       return null;
     }
 
-    // পাসওয়ার্ড বাদ দিয়ে ইউজার অবজেক্ট রিটার্ন
+    // User Object return
     const { password: userPass, ...userWithoutPass } = user;
     return userWithoutPass;
 

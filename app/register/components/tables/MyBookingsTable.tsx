@@ -49,7 +49,7 @@ export default function MyBookingsTable({ data }: { data: any[] }) {
                                         <div className="flex items-center space-x-3">
                                             <div className="avatar">
                                                 <div className="rounded-xl w-24 h-24 relative">
-                                                    {/* ডাটাবেসে img ফিল্ড থাকলে সেটা দেখাবে, না থাকলে ডিফল্ট */}
+                                                    {/* Show the database image */}
                                                     <Image
                                                         src={booking?.serviceImg || "/assets/images/services/1.jpg"}
                                                         alt="Service"

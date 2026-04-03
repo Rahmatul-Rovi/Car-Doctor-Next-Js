@@ -2,9 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-// আপনি চাইলে এই ডাটাগুলো এপিআই থেকেও নিয়ে আসতে পারেন
+// Get the data from API
 const ServicesPage = async () => {
-    // এখানে আপনার সার্ভিস এপিআই কল করতে পারেন
+    // Here Service Api Call
     // const res = await fetch('http://localhost:3000/api/services');
     // const services = await res.json();
 
