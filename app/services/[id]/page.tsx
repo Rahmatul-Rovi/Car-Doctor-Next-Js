@@ -3,10 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-export default async function ServiceDetailspage({ params }) {
+export default async function ServiceDetailspage({ params }: { params: Promise<{ id: string }> })  {
 
   const p = await params;
-    const res = await fetch(`http://localhost:3000/api/services/${p.id}`);
+   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/services/${p.id}`);
     const data = await res.json();
 
   return (
