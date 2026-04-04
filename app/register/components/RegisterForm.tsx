@@ -10,12 +10,12 @@ import SocialLogin from '@/app/login/components/SocialLogin';
 export default function RegisterForm() {
     const router = useRouter();
 
-    const handleRegister = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const password = form.password.value;
+   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  const form = e.target as HTMLFormElement;
+const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+const password = (form.elements.namedItem('password') as HTMLInputElement).value;
         
         // Showing Loading State
         Swal.fire({

@@ -9,7 +9,7 @@ export default async function MyBookingsPage() {
 
   return (
     <div>
-      <MyBookingsTable bookings={data} />
+      <MyBookingsTable data={data} />
     </div>
   )
 }
