@@ -7,9 +7,9 @@ import Swal from 'sweetalert2';
 import SocialLogin from './SocialLogin';
 
 export default function LoginForm() {
- const handleLogin = async (e) => {
+ const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target;
+    const form = e.target as HTMLFormElement;;
     const email = form.email.value;
     const password = form.password.value;
 
