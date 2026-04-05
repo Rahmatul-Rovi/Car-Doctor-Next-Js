@@ -32,7 +32,7 @@ export default function CheckoutForm({ data }: { data: any }) {
 
         try {
             // Save this to the database
-            const res = await fetch("http://localhost:3000/api/services", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/services`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

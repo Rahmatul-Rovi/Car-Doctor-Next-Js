@@ -14,7 +14,7 @@ export default async function MyBookingsPage() {
 
   const bookingCollection = await dbConnect(collectionNamesObj.bookingCollection);
   const data = await bookingCollection.find({ userEmail: session?.user?.email }).toArray();
-  const bookings = JSON.parse(JSON.stringify(data)); // ✅ MongoDB object serialize
+  const bookings = JSON.parse(JSON.stringify(data)); 
 
   return (
     <div>

@@ -2,7 +2,7 @@
 import React from 'react'
 
 type Props = {
-    id: string; // ✅ type দিন
+    id: string; 
 }
 
 export default function DeleteBookingButton({ id }: Props) { 

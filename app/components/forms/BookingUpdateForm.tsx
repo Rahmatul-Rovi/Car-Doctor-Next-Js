@@ -3,7 +3,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 
-// ✅ Type define করুন
+
 type Booking = {
     _id: string;
     serviceName?: string;
@@ -19,9 +19,9 @@ type Props = {
     onUpdate: () => void;
 }
 
-export default function BookingUpdateForm({ booking, onClose, onUpdate }: Props) { // ✅ type দিন
+export default function BookingUpdateForm({ booking, onClose, onUpdate }: Props) { 
     
-    const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => { // ✅ event type
+    const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => { 
         e.preventDefault();
         const form = e.target as HTMLFormElement; // ✅ form type
         
@@ -31,7 +31,7 @@ export default function BookingUpdateForm({ booking, onClose, onUpdate }: Props)
             message: form.message.value,
         };
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/my-bookings/${booking._id}`, { // ✅ localhost সরানো
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/my-bookings/${booking._id}`, { 
             method: "PATCH",
             headers: {
                 "content-type": "application/json"

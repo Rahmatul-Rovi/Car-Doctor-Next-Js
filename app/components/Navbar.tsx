@@ -67,7 +67,7 @@ export default function Navbar() {
       <div className="avatar">
         <div className="w-10 rounded-full ring ring-[#FF3811] ring-offset-base-100 ring-offset-2">
           <Image 
-            src={session?.user?.image || '/assets/default-user.png'} // default image fallback
+            src={session?.user?.image || '/assets/default-user.png'}
             width={40} 
             height={40} 
             alt="user-logo" 
